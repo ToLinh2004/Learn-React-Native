@@ -1,25 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
-  const [test, setTest] =useState({
-    name:'Linh',
-    age:25
-  })
-  const [count, setCount]=useState(0);
+  const [name, setName] = useState<string>("");
+  const [age, setAge]=useState<number>();
+  const [test, setTest] = useState({
+    name: "Linh",
+    age: 25,
+  });
+  const [count, setCount] = useState(0);
   return (
     <View style={styles.container}>
+      <View>
+        <Text>Name: {name}</Text>
+        <TextInput
+          style={styles.styleInput}
+          multiline // automatic line break like textarea
+          onChangeText={(value) => setName(value)}
+        />
+      </View>
+      <View>
+        <Text>Age: {age}</Text>
+        <TextInput
+          style={styles.styleInput}
+          
+          onChangeText={(value) => setAge(+value)}
+          keyboardType="numeric"
+          maxLength={2}
+        />
+      </View>
+
       <Text>Hello word</Text>
-      <Text style={styles.hello}>Hello word, Tờ Linh</Text>
       <Text>
         {JSON.stringify(test)} {test.name}
       </Text>
-      <Text>
-       count = {count}
-      </Text>
+      <Text>count = {count}</Text>
       <View>
-        <Button title="Increase" onPress={()=>setCount(count+1)} />
+        <Button title="Increase" onPress={() => setCount(count + 1)} />
       </View>
     </View>
   );
@@ -28,14 +45,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  hello:{
-    color:'red',
-    borderColor:'purple',
-    padding:2,
-    borderWidth:1
-  }
+  styleInput: {
+    borderWidth: 1,
+    color: "black",
+    width: 200,
+    padding: 12,
+  },
 });
