@@ -1,126 +1,35 @@
-import { useState } from "react";
-import {
-  Alert,
-  Button,
-  FlatList,
-  Keyboard,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { View } from "react-native"
+import HomePage from "./components/review/home"
+import DetaillPage from "./components/review/detail"
+import AboutPage from "./components/review/about"
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import {useEffect} from 'react';
 
-interface ITodo {
-  id: number;
-  name: string;
-}
+SplashScreen.preventAutoHideAsync();  // chờ load font chữ xong thì mới render để thông nhât font chữ
 
-export default function App() {
-  const [todo, setTodo] = useState("");
-  const [listTodo, setListTodo] = useState<ITodo[]>([]);
-  function randomInterger(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
 
-  const handleAddTodo = () => {
-    if(!todo){
-      Alert.alert("Error todo", "empty not input", [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ])
-      
-      return;
-     
+
+const App =() =>{
+  const [loaded, error] = useFonts({
+    "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
+  });
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
     }
-    setListTodo([...listTodo, { id: randomInterger(2, 200), name: todo }]);
-    setTodo('')
-  };
-const handleDeleteTodo=(id:number)=>{
-  const newTodo = listTodo.filter(item => item.id !=id)
-  setListTodo(newTodo);
-
-}
-  return (
-    <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()} >
-    <View style={styles.container}>
-      <Text style={styles.header}>Todo App</Text>
-      <View style={styles.form}>
-        <TextInput
-          value={todo}
-          style={styles.todoInput}
-          onChangeText={(value) => setTodo(value)}
-        />
-        <Button title="Add todo" onPress={handleAddTodo} />
-      </View>
-      <View style={styles.todo}>
-        <FlatList
-        keyExtractor={item => item.id +''}
-          data={listTodo}
-          renderItem={({ item }) => {
-            return (
-              <Pressable
-                onPress={() => handleDeleteTodo(item.id)}
-                style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
-              >
-                <View style={styles.groupTodo}>
-                  <Text style={styles.todoItem}>{item.name}</Text>
-                  <AntDesign name="close" size={24} color="black" />
-                </View>
-              </Pressable>
-            );
-          }}
-        />
-      </View>
+  }, [loaded, error]);
+  if (!loaded && !error) {
+    return null;
+  }
+  return(
+    <View>
+      
+      <HomePage />
+      <DetaillPage />
+      <AboutPage />
     </View>
-    </ TouchableWithoutFeedback>
- 
-  );
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingTop: 50,
-  },
-  header: {
-    backgroundColor: "orange",
-    paddingHorizontal: 20,
-    textAlign: "center",
-    fontSize: 40,
-  },
-  todoInput: {
-    borderBottomWidth: 1,
-    borderBottomColor: "green",
-    padding: 5,
-    marginHorizontal: 15,
-    margin: 15,
-  },
-  form: {
-    
-    marginBottom:30
-  },
-  todo: {
-    flex: 1,
-  },
-  todoItem: {
-    fontSize: 20,
-  },
-  groupTodo: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderStyle: "dashed",
-    justifyContent:'space-between',
-    padding:15,
-    marginBottom:15,
-    marginHorizontal:10
-  },
-});
+export default App;
