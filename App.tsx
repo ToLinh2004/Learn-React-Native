@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 interface ITodo {
   id: number;
@@ -38,7 +39,7 @@ export default function App() {
       return;
      
     }
-    setListTodo([{ id: randomInterger(2, 200), name: todo },...listTodo]);
+    setListTodo([...listTodo, { id: randomInterger(2, 200), name: todo }]);
     setTodo('')
   };
 const handleDeleteTodo=(id:number)=>{
@@ -50,7 +51,7 @@ const handleDeleteTodo=(id:number)=>{
     <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()} >
     <View style={styles.container}>
       <Text style={styles.header}>Todo App</Text>
-      <View style={styles.body}>
+      <View style={styles.form}>
         <TextInput
           value={todo}
           style={styles.todoInput}
@@ -58,17 +59,20 @@ const handleDeleteTodo=(id:number)=>{
         />
         <Button title="Add todo" onPress={handleAddTodo} />
       </View>
-      <View style={styles.body}>
+      <View style={styles.todo}>
         <FlatList
         keyExtractor={item => item.id +''}
           data={listTodo}
           renderItem={({ item }) => {
             return (
               <Pressable
-              onPress={()=>handleDeleteTodo(item.id)}
-              style={({pressed})=>({opacity:pressed ? 0.5 : 1})}
+                onPress={() => handleDeleteTodo(item.id)}
+                style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
               >
-                <Text style={styles.todoItem}>{item.name}</Text>
+                <View style={styles.groupTodo}>
+                  <Text style={styles.todoItem}>{item.name}</Text>
+                  <AntDesign name="close" size={24} color="black" />
+                </View>
               </Pressable>
             );
           }}
@@ -76,6 +80,7 @@ const handleDeleteTodo=(id:number)=>{
       </View>
     </View>
     </ TouchableWithoutFeedback>
+ 
   );
 }
 
@@ -98,15 +103,24 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     margin: 15,
   },
-  body: {
-    paddingHorizontal: 15,
-    marginBottom: 20,
+  form: {
+    
+    marginBottom:30
+  },
+  todo: {
+    flex: 1,
   },
   todoItem: {
     fontSize: 20,
+  },
+  groupTodo: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderStyle: "dashed",
-    marginBottom: 10,
-    padding: 10,
+    justifyContent:'space-between',
+    padding:15,
+    marginBottom:15,
+    marginHorizontal:10
   },
 });
