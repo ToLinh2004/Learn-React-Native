@@ -1,11 +1,16 @@
-import { Text } from "react-native"
+import { Button, Text, View } from "react-native"
 
-const HomePage= ()=>{
-    return(
-        <Text>
-            Home page
-        </Text>
-    )
+const HomePage= (props:any)=>{
+    const {navigation} =props;
+    return (
+      <View>
+        <Text>Home page</Text>
+        <Button
+          title="View Detail"
+          onPress={() => navigation.navigate("Details")}
+        />
+      </View>
+    );
 }
 
 export default HomePage
