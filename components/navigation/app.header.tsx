@@ -12,14 +12,13 @@ const AppHeader = () =>{
             paddingHorizontal:5,
             paddingVertical:10,
             alignItems:'center',
-            paddingTop:40
             
         },
         headerText:{
             
             textAlign:'center',
-            width:'100%',
-            fontSize:20
+            fontSize:20,
+            flex:1
         }
     })
     return (

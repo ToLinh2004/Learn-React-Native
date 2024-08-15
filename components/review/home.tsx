@@ -31,7 +31,7 @@ const HomePage = () => {
   ]);
   return (
     <View>
-      <Text style={{ fontSize: 20 }}>Review List</Text>
+      <Text style={{ fontSize: 20,padding:10 }}>Review List</Text>
       <View>
         <FlatList
           data={reviews}
