@@ -12,7 +12,7 @@ const AboutPage = () => {
   return (
     <View>
       <Text style={[styles.about, globalStyles.globalFont]}>
-        About page google
+        About page
       </Text>
       
     </View>
