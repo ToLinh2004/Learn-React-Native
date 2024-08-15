@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import AppHeader from "../navigation/app.header";
 
 interface IReview {
   id: number;

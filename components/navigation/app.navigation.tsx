@@ -4,15 +4,18 @@ import HomePage from "../review/home";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import "react-native-gesture-handler";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import AppHeader from "./app.header";
 
 const HomeLayout = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+        
+    >
       <Stack.Screen
         name="home"
         component={HomePage}
-        options={{ title: "Trang chủ" }}
+        options={{ header: () =><AppHeader /> }}
       />
       <Stack.Screen
         name="Details"
@@ -27,16 +30,22 @@ const AppNavigation = () => {
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+    // screenOptions={{headerShown:false}}
+    >
       <Drawer.Screen
         name="home1"
         component={HomeLayout}
-        options={{ title: "Trang chủ" }}
+        options={{ title: "Trang chủ",
+            header:() => <></>
+         }}
       />
       <Drawer.Screen
         name="about"
         component={AboutPage}
-        options={{ title: "Trang Thông Tin" }}
+        options={{ title: "Trang Thông Tin" ,
+            header: () => <AppHeader />
+        }}
       />
     </Drawer.Navigator>
   );
