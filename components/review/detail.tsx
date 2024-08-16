@@ -2,7 +2,7 @@ import { Button, Image, StyleSheet, Text, View } from "react-native";
 import { OPENSANS_REGULAR } from "../../utils/const";
 import { NavigationProp,RouteProp
   , useNavigation, useRoute } from "@react-navigation/native";
-import startIcon from "../../assets/images/star.png"
+import startIcon from "../../assets/images/star.png"  
 const styles = StyleSheet.create({
   review: {
     fontSize: 30,

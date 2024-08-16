@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import AppHeader from "../navigation/app.header";
+import CreateModal from "./create.modal";
 
 interface IReview {
   id: number;
@@ -29,16 +29,21 @@ const HomePage = () => {
     { id: 1, title: "React Native", star: 5 },
     { id: 2, title: "Hỏi dân IT", star: 5 },
   ]);
+
+  const [modalVisible, setModalVisible]=useState(false)
   return (
     <View>
-      <Text style={{ fontSize: 20,padding:10 }}>Review List</Text>
+      <Text style={{ fontSize: 20, padding: 10 }}>Review List</Text>
+      <Button title="Add" onPress={()=>setModalVisible(true)}/>
       <View>
         <FlatList
           data={reviews}
           keyExtractor={(item) => item.id + ""}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={() => navigation.navigate("Details",item)}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Details", item)}
+              >
                 <View style={styles.reviewItem}>
                   <Text>{item.title}</Text>
                 </View>
@@ -47,7 +52,7 @@ const HomePage = () => {
           }}
         />
       </View>
-      
+      <CreateModal modalVisible={modalVisible} setModalVisible ={setModalVisible}/>
     </View>
   );
 };
