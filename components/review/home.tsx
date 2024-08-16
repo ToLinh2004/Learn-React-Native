@@ -30,6 +30,10 @@ const HomePage = () => {
     { id: 2, title: "Hỏi dân IT", star: 5 },
   ]);
 
+  const addNew =(item:IReview) =>{
+setReviews([...reviews,item])
+  }
+
   const [modalVisible, setModalVisible]=useState(false)
   return (
     <View>
@@ -52,7 +56,7 @@ const HomePage = () => {
           }}
         />
       </View>
-      <CreateModal modalVisible={modalVisible} setModalVisible ={setModalVisible}/>
+      <CreateModal modalVisible={modalVisible} setModalVisible ={setModalVisible} addNew={addNew}/>
     </View>
   );
 };
